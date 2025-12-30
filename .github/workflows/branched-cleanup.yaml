@@ -11,7 +11,7 @@ jobs:
     # 仅当 PR 已合并 AND head 分支来自本仓库 AND 分支名以 "api-reference-" 开头
     if: |
       github.event.pull_request.merged == true &&
-      github.event.pull_request.head.repo.full_name == "zhzhuang-zju/website" &&
+      github.event.pull_request.head.repo.full_name == 'zhzhuang-zju/website' &&
       startsWith(github.event.pull_request.head.ref, 'api-reference-')
     runs-on: ubuntu-latest
     steps:
