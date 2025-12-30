@@ -190,7 +190,7 @@ GET /apis/apps.karmada.io/v1alpha1/workloadrebalancers/`{name}`/status
 
 200 ([WorkloadRebalancer](../app-resources/workload-rebalancer-v1alpha1#workloadrebalancer)): OK
 
-### `list` list or watch objects of kind WorkloadRebalancer
+### `list` list or watch objects of kind WorkloadRebalancer temp
 
 #### HTTP Request
 
