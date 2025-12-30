@@ -31,7 +31,7 @@ function usage() {
 MODULE_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 REPO_ROOT=$MODULE_ROOT/../..
 
-GITHUB_RAW_URL="https://raw.githubusercontent.com/karmada-io/karmada/master/api/openapi-spec/swagger.json"
+GITHUB_RAW_URL="https://raw.githubusercontent.com/zhzhuang-zju/karmada/master/api/openapi-spec/swagger.json"
 LOCAL_FILENAME=$MODULE_ROOT/api/current/swagger.json
 
 mkdir -p $MODULE_ROOT/api/current
