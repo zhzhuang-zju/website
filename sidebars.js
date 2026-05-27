@@ -68,7 +68,7 @@ module.exports = {
                     type: "category",
                     label: "Multi-cluster Scheduling",
                     items: [
-                        "userguide/scheduling/resource-propagating",
+                        "userguide/scheduling/propagation-policy",
                         "userguide/scheduling/override-policy",
                         "userguide/scheduling/propagate-dependencies",
                         "userguide/scheduling/multi-component-scheduling",
@@ -83,9 +83,9 @@ module.exports = {
                     type: "category",
                     label: "Multi-cluster Failover",
                     items: [
+                        "userguide/failover/cluster-status-maintenance",
                         "userguide/failover/cluster-failover",
                         "userguide/failover/cluster-taint-management",
-                        "userguide/failover/determine-cluster-failures",
                         "userguide/failover/failover-analysis",
                         "userguide/failover/application-failover",
                     ],
@@ -181,9 +181,40 @@ module.exports = {
                     type: "category",
                     label: "Monitoring",
                     items: [
+                        "administrator/monitoring/karmada-observability",
                         "administrator/monitoring/working-with-filebeat",
                         "administrator/monitoring/working-with-prometheus-in-control-plane",
                         "administrator/monitoring/working-with-prometheus",
+                    ],
+                },
+                {
+                    type: "category",
+                    label: "Reliability",
+                    items: [
+                        "administrator/reliability/guide",
+                        {
+                            type: "category",
+                            label: "SLO Runbooks",
+                            link: {
+                                type: "doc",
+                                id: "administrator/reliability/runbooks/SLO/index",
+                            },
+                            items: [
+                                "administrator/reliability/runbooks/SLO/karmada-apiserver-availability",
+                                "administrator/reliability/runbooks/SLO/karmada-apiserver-latency",
+                                "administrator/reliability/runbooks/SLO/policy-apply-availability",
+                                "administrator/reliability/runbooks/SLO/policy-apply-latency",
+                                "administrator/reliability/runbooks/SLO/karmada-scheduler-availability",
+                                "administrator/reliability/runbooks/SLO/karmada-scheduler-latency",
+                                "administrator/reliability/runbooks/SLO/karmada-scheduler-estimator-availability",
+                                "administrator/reliability/runbooks/SLO/karmada-scheduler-estimator-latency",
+                                "administrator/reliability/runbooks/SLO/binding-sync-work-availability",
+                                "administrator/reliability/runbooks/SLO/binding-sync-work-latency",
+                                "administrator/reliability/runbooks/SLO/work-sync-workload-availability",
+                                "administrator/reliability/runbooks/SLO/work-sync-workload-latency",
+                                "administrator/reliability/runbooks/SLO/cluster-sync-latency",
+                            ],
+                        },
                     ],
                 },
                 {
@@ -210,7 +241,8 @@ module.exports = {
                         "administrator/upgrading/v1.12-v1.13",
                         "administrator/upgrading/v1.13-v1.14",
                         "administrator/upgrading/v1.14-v1.15",
-                        "administrator/upgrading/v1.15-v1.16"
+                        "administrator/upgrading/v1.15-v1.16",
+                        "administrator/upgrading/v1.16-v1.17"
                     ],
                 },
                 {
@@ -349,23 +381,23 @@ module.exports = {
                     items: [
                         {
                             type: "category",
-                            label: "App Resources",
+                            label: "Apps Resources",
                             link: {
                                 type: 'generated-index',
                             },
                             items: [
-                                "reference/karmada-api/app-resources/workload-rebalancer-v1alpha1",
+                                "reference/karmada-api/apps-resources/workload-rebalancer-v1alpha1",
                             ],
                         },
                         {
                             type: "category",
-                            label: "Auto Scaling Resources",
+                            label: "Autoscaling Resources",
                             link: {
                                 type: 'generated-index',
                             },
                             items: [
-                                "reference/karmada-api/auto-scaling-resources/cron-federated-hpa-v1alpha1",
-                                "reference/karmada-api/auto-scaling-resources/federated-hpa-v1alpha1",
+                                "reference/karmada-api/autoscaling-resources/cron-federated-hpa-v1alpha1",
+                                "reference/karmada-api/autoscaling-resources/federated-hpa-v1alpha1",
                             ],
                         },
                         {
