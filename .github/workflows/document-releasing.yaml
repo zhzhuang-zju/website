@@ -41,5 +41,34 @@ jobs:
           cd infra/document-releasing
           hack/prune-release.sh ${{ github.event.inputs.prune_version }}
 
-      - name: Show diff
-        run: git diff
+      - name: Commit and create PR
+        if: ${{ success() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected, skipping PR creation."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Release docs ${{ github.event.inputs.new_version }} and prune ${{ github.event.inputs.prune_version }}"
+
+          if [ "${{ github.run_attempt }}" -gt 1 ]; then
+            git push -f --set-upstream origin auto-action-${{ github.sha }}
+          else
+            git push --set-upstream origin auto-action-${{ github.sha }}
+          fi
+
+          gh pr create \
+            --title "Release docs ${{ github.event.inputs.new_version }} and prune ${{ github.event.inputs.prune_version }}" \
+            --body "Automated PR by github-actions[bot]
+
+          - Released new version: \`${{ github.event.inputs.new_version }}\`
+          - Pruned old version: \`${{ github.event.inputs.prune_version }}\`
+
+          Triggered by workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --base main \
+            --head auto-action-${{ github.sha }}
