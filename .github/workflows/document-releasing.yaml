@@ -73,5 +73,6 @@ jobs:
           - Pruned old version: \`${{ github.event.inputs.prune_version }}\`
 
           Triggered by workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --repo ${{ github.repository }} \
             --base main \
             --head auto-action-${{ github.sha }}
