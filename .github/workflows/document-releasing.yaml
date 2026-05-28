@@ -54,8 +54,8 @@ jobs:
             exit 0
           fi
 
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Release docs ${{ github.event.inputs.new_version }} and prune ${{ github.event.inputs.prune_version }}"
 
