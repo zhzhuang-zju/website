@@ -10,12 +10,15 @@ on:
         description: 'Version to prune (e.g. v1.12)'
         required: true
 
+env:
+  UPSTREAM_REPO: karmada-io/website
+  FORK_OWNER: zhzhuang-zju
+
 jobs:
   release-docs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - name: Checkout zhzhuang-zju/website
         uses: actions/checkout@v4
@@ -23,9 +26,9 @@ jobs:
       - name: Create auto-action branch
         run: git checkout -b auto-action-${{ github.run_id }}
 
-      - name: Pull latest code from karmada-io/website master
+      - name: Pull latest code from karmada-io/website main
         run: |
-          git remote add upstream https://github.com/karmada-io/website.git
+          git remote add upstream https://github.com/${{ env.UPSTREAM_REPO }}.git
           git fetch upstream main
           git reset --hard upstream/main
 
@@ -47,7 +50,7 @@ jobs:
       - name: Commit and create PR
         if: ${{ success() }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.KARMADA_PAT }}
         run: |
           if git diff --quiet; then
             echo "No changes detected, skipping PR creation."
@@ -81,6 +84,6 @@ jobs:
 
           **Special notes for your reviewer**:
           Triggered by workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            --repo ${{ github.repository }} \
+            --repo ${{ env.UPSTREAM_REPO }} \
             --base main \
-            --head auto-action-${{ github.run_id }}
+            --head ${{ env.FORK_OWNER }}:auto-action-${{ github.run_id }}
