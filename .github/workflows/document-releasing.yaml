@@ -67,11 +67,19 @@ jobs:
 
           gh pr create \
             --title "Release docs ${{ github.event.inputs.new_version }} and prune ${{ github.event.inputs.prune_version }}" \
-            --body "Automated PR by github-actions[bot]
+            --body "**What type of PR is this?**
 
+          /kind documentation
+
+          **What this PR does / why we need it**:
+          Automated document releasing by github-actions[bot].
           - Released new version: \`${{ github.event.inputs.new_version }}\`
           - Pruned old version: \`${{ github.event.inputs.prune_version }}\`
 
+          **Which issue(s) this PR fixes**:
+          Fixes #
+
+          **Special notes for your reviewer**:
           Triggered by workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             --repo ${{ github.repository }} \
             --base main \
