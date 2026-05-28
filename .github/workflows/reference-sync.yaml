@@ -1,1 +1,70 @@
-#
+name: Reference Docs Sync
+
+on:
+  workflow_dispatch:
+
+env:
+  UPSTREAM_REPO: karmada-io/website
+  FORK_OWNER: zhzhuang-zju
+
+jobs:
+  sync-reference:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout zhzhuang-zju/website
+        uses: actions/checkout@v4
+
+      - name: Create auto-action branch
+        run: git checkout -b auto-action-${{ github.run_id }}
+
+      - name: Pull latest code from karmada-io/website main
+        run: |
+          git remote add upstream https://github.com/${{ env.UPSTREAM_REPO }}.git
+          git fetch upstream main
+          git reset --hard upstream/main
+
+      - name: Update reference docs
+        run: |
+          cd infra/document-releasing
+          hack/update-reference.sh
+
+      - name: Commit and create PR
+        if: ${{ success() }}
+        env:
+          GH_TOKEN: ${{ secrets.KARMADA_PAT }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected, skipping PR creation."
+            exit 0
+          fi
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Sync reference docs"
+
+          if [ "${{ github.run_attempt }}" -gt 1 ]; then
+            git push -f --set-upstream origin auto-action-${{ github.run_id }}
+          else
+            git push --set-upstream origin auto-action-${{ github.run_id }}
+          fi
+
+          gh pr create \
+            --title "Sync reference docs" \
+            --body "**What type of PR is this?**
+
+          /kind documentation
+
+          **What this PR does / why we need it**:
+          Automated reference docs sync by github-actions[bot].
+
+          **Which issue(s) this PR fixes**:
+          Fixes #
+
+          **Special notes for your reviewer**:
+          Triggered by workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --repo ${{ env.UPSTREAM_REPO }} \
+            --base main \
+            --head ${{ env.FORK_OWNER }}:auto-action-${{ github.run_id }}
