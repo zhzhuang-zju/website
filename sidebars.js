@@ -37,6 +37,16 @@ module.exports = {
                 "tutorials/resource-migration",
                 "tutorials/access-service-across-clusters",
                 "tutorials/workload-rebalancer",
+                {
+                    type: "category",
+                    label: "Progressive Rollout Strategies",
+                    items: [
+                        "tutorials/rollout/overview",
+                        "tutorials/rollout/canary",
+                        "tutorials/rollout/rolling-upgrade",
+                        "tutorials/rollout/wave-rollout",
+                    ],
+                },
             ],
         },
         {
@@ -77,6 +87,7 @@ module.exports = {
                         "userguide/scheduling/cluster-resources",
                         "userguide/scheduling/workload-rebalancer",
                         "userguide/scheduling/priority-scheduling",
+                        "userguide/scheduling/scheduling-overcommit-protection",
                     ],
                 },
                 {
@@ -242,7 +253,9 @@ module.exports = {
                         "administrator/upgrading/v1.13-v1.14",
                         "administrator/upgrading/v1.14-v1.15",
                         "administrator/upgrading/v1.15-v1.16",
-                        "administrator/upgrading/v1.16-v1.17"
+                        "administrator/upgrading/v1.16-v1.17",
+                        "administrator/upgrading/v1.17-v1.18",
+                        "administrator/upgrading/v1.18-v1.19"
                     ],
                 },
                 {
@@ -259,7 +272,15 @@ module.exports = {
                         "administrator/security/security-considerations",
                         "administrator/security/verify-artifacts",
                         "administrator/security/component-permission",
-                        "administrator/security/cert-framework"
+                        "administrator/security/cert-framework",
+                        {
+                            type: "category",
+                            label: "Certificate Rotation",
+                            items: [
+                                "administrator/security/certificate-rotation/overview",
+                                "administrator/security/certificate-rotation/built-in-cert-rotation",
+                            ],
+                        },
                     ],
                 },
                 {
