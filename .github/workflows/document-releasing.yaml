@@ -69,6 +69,7 @@ jobs:
           fi
 
           gh pr create \
+            --repo ${{ github.repository }} \
             --title "Release docs ${{ github.event.inputs.new_version }} and prune ${{ github.event.inputs.prune_version }}" \
             --body "**What type of PR is this?**
 
